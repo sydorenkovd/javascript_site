@@ -1,0 +1,62 @@
+﻿<!--
+
+    Самым простым способом интегрировать в страницу JavaScvript, 
+    является использование тега <script>...</script>.
+    Тег рекомендуется разместить в теге <head>...</head>.
+    Внутри элемента <script> размещается JavaScript, код 
+    который будет выполняться при загрузке страницы.
+
+-->
+
+<html>
+<head>
+    <title>Интеграция JavaScript</title>
+
+    <!--Тег script-->
+    <script type="text/javascript">
+    function addToList(){
+        var str = prompt("Название", "");
+        if(str){
+        var ul = document.getElementById("list");
+        var li = document.createElement('LI');
+        li.onclick = onLIClick;
+        ul.appendChild(li);
+        var text = document.createTextNode(str);
+        li.appendChild(text);
+        }
+    }
+    function onLIClick(){
+        if(this.parentNode.selectedItem){
+            this.parentNode.selectedItem.style.color = '';
+        }
+        if(this.parentNode.selectedItem != this){
+
+
+        this.style.color = "red";
+        this.parentNode.selectedItem = this;
+    }
+        else
+            this.parentNode.selectedItem = null;
+     }
+    window.onload = function(){
+       var ul = document.getElementById("list");
+       var lis = ul.getElementsByTagName("LI");
+       for(var i = 0; i < lis.length; i++){
+        lis[i].onclick = onLIClick;
+       }
+    }
+    </script>
+  
+</head>
+<body>
+    <div id="">
+        <ul id="list">
+            <li>Музыка</li>
+            <li>Кино</li>
+            <li>Архитектура</li>
+        </ul>
+    <a href="javascript:addToList();">Добавить елемент</a>
+    
+</div>
+</body>
+</html>

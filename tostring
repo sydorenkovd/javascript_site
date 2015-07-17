@@ -1,0 +1,8 @@
+var user = {
+  Name: 'Василий',
+  userSurname: 'Popov',
+  toString: function(){
+    return this.Name + " " + this.userSurname;
+  }
+};
+alert(user);

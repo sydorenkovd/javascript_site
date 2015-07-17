@@ -1,0 +1,9 @@
+function Dog(name, color){
+  this.name = name;
+  this.color = color;
+}
+Dog.prototype.toString = function(){
+  return "Собака: " + this.name + ", color:" + this.color;
+}
+theDog = new Dog("Барбос", "черный");
+alert(theDog);

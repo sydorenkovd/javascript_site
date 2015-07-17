@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Форма</title>
+</head>
+<body>
+<form action="">
+	<table>
+		<tr>
+			<td>Писать на почту</td>
+			<td>
+				<input type="text" name="email">
+			</td>
+		</tr>
+		<tr>
+			<td>Пароль</td>
+			<td>
+				<input type="password" name="pass">
+			</td>
+		</tr>
+		<tr>
+			<td>Я с рождения</td>
+			<td>
+				<input type="radio" name="gender" value="1" id="g1"><label for="g1">Мужчина</label>
+				<input type="radio" name="gender" value="2" id="g2"><label for="g2">Женщина</label>
+			</td>
+		</tr>
+		<tr>
+			<td>Год рождения</td>
+			<td>
+				<select name="birth_year">
+					<option value="1981">1981</option>
+					<option value="1982">1982</option>
+					<option value="1983">1983</option>
+				</select>-й
+			</td>
+		</tr>
+		<tr>
+			<td>Я знаю</td>
+			<td>
+				<label><input type="checkbox" name="lang" value="1">Испанский</label><br>
+				<label><input type="checkbox" name="lang" value="2">Немецкий</label><br>
+				<label><input type="checkbox" name="lang" value="3">Английский</label><br>
+				<label><input type="checkbox" name="lang" value="4">Китайский</label>
+			</td>
+		</tr>
+		<tr>
+			<td>Обо мне</td>
+			<td>
+				<textarea name="about_me" cols="30" rows="6"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" value="Готово">
+				<button type="reset">Люблю тренироваться</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

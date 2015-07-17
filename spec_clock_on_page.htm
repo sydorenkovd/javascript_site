@@ -1,0 +1,40 @@
+<html>
+  <head>
+  <script type="text/javascript">
+var timer;
+//var colors = new Array("red", "blue", "yellow", "green", "black", "white", "brown");
+function getRandom(n){
+	return Math.round(n*Math.random());
+}
+function getColorCSSRandom(){
+	var red = getRandom(255);
+	var blue = getRandom(255);
+	var green = getRandom(255);
+	var color = "rgb("+red+","+blue+","+green+")";
+	return color;
+}
+function showTime(){
+	var now = new Date();
+	var c = document.getElementById('clock');
+	//c.firstChild.nodeValue = now.toLocaleTimeString();
+	c.innerHTML = now.toLocaleTimeString();
+	//c.style.color = "red";
+	//c.style.backgroundColor = "yellow";
+	//c.style.color = colors[now.getSeconds()%7];
+	c.style.color = getColorCSSRandom( );
+}
+function startTime(){
+	if(!timer){
+		timer = window.setInterval("showTime()", 1000);
+	}
+}
+</script>
+</head>
+<body>
+	<h2 id="clock"></h2>
+	<div id="demoLinks">
+		<a href="javascript:showTime();">showTime</a>
+		<a href="javascript:startTime();">startTime</a>
+	</div>
+		  </body>
+</html>

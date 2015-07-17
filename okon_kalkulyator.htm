@@ -1,0 +1,453 @@
+<html>
+<head>
+<title>Оконный калкулятор на Java</title>
+</head>
+<body bgcolor="#95BFFF" text="#000000" link="#888888" vlink="#888888" alink="#888888" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+
+<script language="javascript">
+function getValue(SomeSelect) {
+  SomeSel_Obj = document.forms["SForm"].elements[SomeSelect].options;
+  SomeSel_Val = SomeSel_Obj[SomeSel_Obj.selectedIndex].value;
+  if(SomeSel_Val) { return SomeSel_Val; } else { return null; }
+}
+function calculate()
+{
+  var WSquare, LSquare, CSquare, RSquare, ActualSquare, AddCooficient, WTypeSum, AddSum;
+  var Val_a, Val_b, Val_c, LWType, RWType, ImpOrPritv, WMaterial, WColor, WPacket, SlivType, PodokonnikType, PodokWidth, AlumOklad, OtkosWidth, MosquitoL, MosquitoR, Mounting;
+  Val_a = parseInt(document.forms["SForm"].elements["val_a"].value,0);
+  Val_b = parseInt(document.forms["SForm"].elements["val_b"].value,0);
+  Val_c = parseInt(document.forms["SForm"].elements["val_c"].value,0);
+  LWType = parseInt(getValue('Sleft'),0);
+  RWType = parseInt(getValue('Sright'),0);
+  WMaterial = parseInt(getValue('WMaterial'),0);
+  WColor = parseInt(getValue('WColor'),0);
+  WPacket = parseInt(getValue('WPacket'),0);
+  SlivType = parseInt(getValue('SlivType'),0);
+  PodokonnikType = parseInt(getValue('PodokonnikType'),0);
+  PodokWidth = parseInt(getValue('PodokWidth'),0);
+  if(document.forms["SForm"].elements["AlumOklad"].checked) AlumOklad = true; else AlumOklad = false;
+  if(document.forms["SForm"].OtkosType[0].checked) OtkosType = document.forms["SForm"].OtkosType[0].value;
+  if(document.forms["SForm"].OtkosType[1].checked) OtkosType = document.forms["SForm"].OtkosType[1].value;
+  if(document.forms["SForm"].OtkosType[2].checked) OtkosType = document.forms["SForm"].OtkosType[2].value;
+  OtkosWidth = parseInt(getValue('OtkosWidth'),0);
+  if(document.forms["SForm"].elements["MosquitoL"].checked) MosquitoL = true; else MosquitoL = false;
+  if(document.forms["SForm"].elements["MosquitoR"].checked) MosquitoR = true; else MosquitoR = false;
+  if(document.forms["SForm"].elements["Mounting"].checked) Mounting = true; else Mounting = false;
+  // Predefined values (prices)
+  var WindowT1_CPS = 155;
+  var WindowT2_CPS = 165;
+  var WindowT3_CPS = 217;
+  var WindowT4_CPS = 236;
+  var WindowT6_CPS = 230;
+  var WindowT7_CPS = 249;
+  var WndWoodM2_Coof = 0.11;
+  var WndWoodM3_Coof = 0.15;
+  var WndWoodM4_Coof = 0.15;
+  var WndWoodM5_Coof = 0.21;
+  var WndWoodM6_Coof = 0.3;
+  var WndWoodM7_Coof = 0.7;
+  var WndWoodM8_Coof = 0.9;
+  var WndColorC2_CPS = 15;
+  var WndColorC3_CPS = 15;
+  var SteklopacketT2_CPS = 6;
+  var SteklopacketT3_CPS = 50;
+  var SteklopacketT4_CPS = 9;
+  var SteklopacketT5_CPS = 100;
+  var SteklopacketT6_CPS = 25;
+  var SlivTO1_CPM = 7;
+  var SlivTO2_CPM = 11;
+  var SlivTO3_CPM = 12;
+  var SlivTO4_CPM = 14;
+  var SlivTO5_CPM = 17;
+  var SlivTA1_CPM = 13;
+  var SlivTA2_CPM = 15;
+  var SlivTA3_CPM = 17;
+  var SlivTA4_CPM = 22;
+  var SlivTA5_CPM = 32;
+  var PodokPVH1_1 = 22; var PodokPVH2_1 = 16;
+  var PodokPVH1_2 = 24; var PodokPVH2_2 = 20;
+  var PodokPVH1_3 = 27; var PodokPVH2_3 = 23;
+  var PodokPVH1_4 = 32; var PodokPVH2_4 = 27;
+  var PodokPVH1_5 = 37; var PodokPVH2_5 = 29;
+  var PodokPVH1_6 = 42; var PodokPVH2_6 = 32;
+  var PodokPVH1_7 = 52; var PodokPVH2_7 = 37;
+  var PodokPVH1_8 = 57; var PodokPVH2_8 = 42;
+  var OtkosT1_1 = 22; var OtkosT2_1 = OtkosT1_1 * 2.2; var OtkosT3_1 = OtkosT1_1;
+  var OtkosT1_2 = 24; var OtkosT2_2 = OtkosT1_2 * 2.2; var OtkosT3_2 = OtkosT1_2;
+  var OtkosT1_3 = 27; var OtkosT2_3 = OtkosT1_3 * 2.2; var OtkosT3_3 = OtkosT1_3;
+  var OtkosT1_4 = 32; var OtkosT2_4 = OtkosT1_4 * 2.2; var OtkosT3_4 = OtkosT1_4;
+  var OtkosT1_5 = 35; var OtkosT2_5 = OtkosT1_5 * 2.2; var OtkosT3_5 = OtkosT1_5;
+  var OtkosT1_6 = 37; var OtkosT2_6 = OtkosT1_6 * 2.2; var OtkosT3_6 = OtkosT1_6;
+  var OtkosT1_7 = 42; var OtkosT2_7 = OtkosT1_7 * 2.2; var OtkosT3_7 = OtkosT1_7;
+  var Mosquete_CPS = 35;
+  var Mounting_CPS = 40;
+  // Square results
+  LSquare = (Val_a * Val_b)/1000000;
+  RSquare = (Val_a * Val_c)/1000000;
+  ActualSquare = LSquare + RSquare;
+  WTypeSum = 0; AddSum = 0; AddCooficient = 1;
+  // Calculate price for each type of window
+  // Calculate price for each type of window
+  if(LWType==1) WTypeSum = WTypeSum + (LSquare*WindowT1_CPS);
+  if(RWType==1) WTypeSum = WTypeSum + (RSquare*WindowT1_CPS);
+  if(LWType==2) WTypeSum = WTypeSum + (LSquare*WindowT2_CPS);
+  if(RWType==2) WTypeSum = WTypeSum + (RSquare*WindowT2_CPS);
+  if(LWType==3) WTypeSum = WTypeSum + (LSquare*WindowT3_CPS);
+  if(RWType==3) WTypeSum = WTypeSum + (RSquare*WindowT3_CPS);
+  if(LWType==4) WTypeSum = WTypeSum + (LSquare*WindowT4_CPS);
+  if(RWType==4) WTypeSum = WTypeSum + (RSquare*WindowT4_CPS);
+  if(LWType==5) WTypeSum = WTypeSum + (LSquare*WindowT4_CPS) + 11;
+  if(RWType==5) WTypeSum = WTypeSum + (RSquare*WindowT4_CPS) + 11;
+  // Window Material
+  if(WMaterial==2) AddCooficient = AddCooficient + WndWoodM2_Coof;
+  if(WMaterial==3) AddCooficient = AddCooficient + WndWoodM3_Coof;
+  if(WMaterial==4) AddCooficient = AddCooficient + WndWoodM4_Coof;
+  if(WMaterial==5) AddCooficient = AddCooficient + WndWoodM5_Coof;
+  if(WMaterial==6) AddCooficient = AddCooficient + WndWoodM6_Coof;
+  if(WMaterial==7) AddCooficient = AddCooficient + WndWoodM7_Coof;
+  if(WMaterial==8) AddCooficient = AddCooficient + WndWoodM8_Coof;
+  // Window Color
+  if(WColor==2) AddSum = AddSum + (ActualSquare * WndColorC2_CPS);
+  if(WColor==3) AddSum = AddSum + (ActualSquare * WndColorC3_CPS);
+  // Steklopaket
+  if(WPacket==2) AddSum = AddSum - (ActualSquare * SteklopacketT2_CPS);
+  if(WPacket==3) AddSum = AddSum + (ActualSquare * SteklopacketT3_CPS);
+  if(WPacket==4) AddSum = AddSum + (ActualSquare * SteklopacketT4_CPS);
+  if(WPacket==5) AddSum = AddSum + (ActualSquare * SteklopacketT5_CPS);
+  if(WPacket==6) AddSum = AddSum + (ActualSquare * SteklopacketT6_CPS);
+  // Sliv
+  SlivLength = Val_b + Val_c;
+  if(SlivType==1)  AddSum = AddSum + 5;
+  if(SlivType==2)  AddSum = AddSum + (SlivLength * SlivTO1_CPM / 1000);
+  if(SlivType==3)  AddSum = AddSum + (SlivLength * SlivTO2_CPM / 1000);
+  if(SlivType==4)  AddSum = AddSum + (SlivLength * SlivTO3_CPM / 1000);
+  if(SlivType==5)  AddSum = AddSum + (SlivLength * SlivTO4_CPM / 1000);
+  if(SlivType==6)  AddSum = AddSum + (SlivLength * SlivTO5_CPM / 1000);
+  if(SlivType==7)  AddSum = AddSum + (SlivLength * SlivTA1_CPM / 1000);
+  if(SlivType==8)  AddSum = AddSum + (SlivLength * SlivTA2_CPM / 1000);
+  if(SlivType==9)  AddSum = AddSum + (SlivLength * SlivTA3_CPM / 1000);
+  if(SlivType==10) AddSum = AddSum + (SlivLength * SlivTA4_CPM / 1000);
+  if(SlivType==11) AddSum = AddSum + (SlivLength * SlivTA5_CPM / 1000);
+  if(SlivType > 0) AddSum = AddSum + ( SlivLength / 1000 ) * 7;
+  // Podokonnik
+  if(PodokonnikType > 0) {
+    PodokLength = Val_b + Val_c;
+    PodokonnikSquareNPrc = ((PodokLength * PodokWidth) / 1000000 ) * 100;
+    if(PodokonnikType==1)  AddSum = AddSum + PodokonnikSquareNPrc;
+    if(PodokonnikType==3)  AddSum = AddSum + (PodokonnikSquareNPrc * ( WndWoodM3_Coof + 1) );
+    if(PodokonnikType==4)  AddSum = AddSum + (PodokonnikSquareNPrc * ( WndWoodM4_Coof + 1) );
+    if(PodokonnikType==6)  AddSum = AddSum + (PodokonnikSquareNPrc * ( WndWoodM6_Coof + 1) );
+    if(PodokonnikType==7)  AddSum = AddSum + (PodokonnikSquareNPrc * ( WndWoodM7_Coof + 1) );
+    if(PodokonnikType==8)  AddSum = AddSum + (PodokonnikSquareNPrc * ( WndWoodM8_Coof + 1) );
+    if(PodokonnikType==9) {
+      if(PodokWidth <= 200) AddSum = AddSum + (PodokPVH1_1 * ( PodokLength / 1000 ));
+      if((PodokWidth > 200) && (PodokWidth <= 250)) AddSum = AddSum + (PodokPVH1_2 * ( PodokLength / 1000 ));
+      if((PodokWidth > 250) && (PodokWidth <= 300)) AddSum = AddSum + (PodokPVH1_3 * ( PodokLength / 1000 ));
+      if((PodokWidth > 300) && (PodokWidth <= 350)) AddSum = AddSum + (PodokPVH1_4 * ( PodokLength / 1000 ));
+      if((PodokWidth > 350) && (PodokWidth <= 400)) AddSum = AddSum + (PodokPVH1_5 * ( PodokLength / 1000 ));
+      if((PodokWidth > 400) && (PodokWidth <= 450)) AddSum = AddSum + (PodokPVH1_6 * ( PodokLength / 1000 ));
+      if((PodokWidth > 450) && (PodokWidth <= 500)) AddSum = AddSum + (PodokPVH1_7 * ( PodokLength / 1000 ));
+      if(PodokWidth > 500) AddSum = AddSum + (PodokPVH1_8 * ( PodokLength / 1000 ));
+    }
+    if(PodokonnikType==10) {
+      if(PodokWidth <= 200) AddSum = AddSum + (PodokPVH2_1 * ( PodokLength / 1000 ));
+      if((PodokWidth > 200) && (PodokWidth <= 250)) AddSum = AddSum + (PodokPVH2_2 * ( PodokLength / 1000 ));
+      if((PodokWidth > 250) && (PodokWidth <= 300)) AddSum = AddSum + (PodokPVH2_3 * ( PodokLength / 1000 ));
+      if((PodokWidth > 300) && (PodokWidth <= 350)) AddSum = AddSum + (PodokPVH2_4 * ( PodokLength / 1000 ));
+      if((PodokWidth > 350) && (PodokWidth <= 400)) AddSum = AddSum + (PodokPVH2_5 * ( PodokLength / 1000 ));
+      if((PodokWidth > 400) && (PodokWidth <= 450)) AddSum = AddSum + (PodokPVH2_6 * ( PodokLength / 1000 ));
+      if((PodokWidth > 450) && (PodokWidth <= 500)) AddSum = AddSum + (PodokPVH2_7 * ( PodokLength / 1000 ));
+      if(PodokWidth > 500) AddSum = AddSum + (PodokPVH2_8 * ( PodokLength / 1000 ));
+    }
+    AddSum = AddSum + ( PodokLength / 1000 ) * 10;
+  }
+  // Alum oklad
+  if(AlumOklad==true) AddSum = AddSum + (ActualSquare * 125);
+  // Otkos
+  OtkosLength = Val_b + Val_c + (Val_a * 2);
+  var SubVal = 0;
+  if(OtkosType=='Plastic')  SubVal = 1;
+  if(OtkosType=='PlasticC') SubVal = 2;
+  if(OtkosType=='Gips')     SubVal = 3;
+  if(OtkosWidth > 0) {
+    var OMulti = eval('OtkosT' + SubVal + '_' + OtkosWidth);
+    AddSum = AddSum + (OtkosLength * OMulti / 1000);
+  }
+  // Mosquito web
+  ML_Square = LSquare; if(ML_Square < 1) ML_Square = 1;
+  MR_Square = RSquare; if(MR_Square < 1) MR_Square = 1;
+  if(MosquitoL==true) AddSum = AddSum + (ML_Square * Mosquete_CPS) + 5;
+  if(MosquitoR==true) AddSum = AddSum + (MR_Square * Mosquete_CPS) + 5;
+
+  // Mounting
+  if(Mounting==true) AddSum = AddSum + (ActualSquare * Mounting_CPS);
+//  alert('LSquare=' + LSquare + '; CSquare=' + CSquare + '; RSquare=' + RSquare);
+//  alert('AddSum=' + AddSum + '; Coof=' + AddCooficient);
+  // Cooficents
+  WTypeSum = WTypeSum * AddCooficient;
+   csum.innerText=Math.round(WTypeSum + AddSum)+1;
+   csss.innerText=(Math.round((ActualSquare)*100))/100;
+}
+</script>
+
+
+<table width="77%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="769" valign="top"> 
+      <center>
+        <center>
+          <center>
+            <img src="imajes/okno.gif" hspace="40" alt="окно деревянное">
+          </center>
+          <form name="SForm">
+            &nbsp;<font color="#FF0000">&nbsp;&nbsp;<span lang="ru"><b>Оконный 
+			калькулятор </b></span></font><b><font color="#FF0000">:</font></b><br>
+            <br>
+            <table border=0 cellspacing=0 cellpadding=5 width=500>
+              <tr> 
+                <td width="250" valign="top"><b>Высота окна[A]:</b></td>
+                <td width="250"> 
+                  <input type="text" name="val_a" size="10">
+                  &nbsp;мм<br>
+                </td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Тип левой створки: </b></td>
+                <td width="250"> 
+                  <select name="Sleft">
+                    <option value="1">1 - Глухое окно (стеклопакет в коробке)</option>
+                    <option value="2">2 - Глухое окно с ложной створкой</option>
+                    <option value="3">3 - Поворотное</option>
+                    <option value="4">4 - Поворотно-откидное</option>
+                    <option value="5">5 - Поворотно-откидное с микрощелевым проветриванием</option>
+                  </select>
+                </td>
+              </tr>
+              <tr> 
+                <td width="250" valign="top"><b>Ширина левой створки[B]: </b></td>
+                <td width="250"> 
+                  <input type="text" name="val_b" size="10">
+                  &nbsp;мм<br>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2" width="250" valign="top"> 
+                  <input type="checkbox" name="MosquitoL" value="True">
+                  <b>Москитная сетка</b></td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Тип правой створки: </b></td>
+                <td width="250"> 
+                  <select name="Sright">
+                    <option value="1">1 - Глухое окно (стеклопакет в коробке)</option>
+                    <option value="2">2 - Глухое окно с ложной створкой</option>
+                    <option value="3">3 - Поворотное</option>
+                    <option value="4">4 - Поворотно-откидное</option>
+                    <option value="5">5 - Поворотно-откидное с микрощелевым проветриванием</option>
+                  </select>
+              </tr>
+              <tr> 
+                <td width="250" valign="top"><b>Ширина правой створки[C]:</b></td>
+                <td width="250"> 
+                  <input type="text" name="val_c" size="10">
+                  &nbsp;мм<br>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2" width="250" valign="top"> 
+                  <input type="checkbox" name="MosquitoR" value="True">
+                  <b>Москитная сетка</b></td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Материал: </b></td>
+                <td width="250"> 
+                  <select name="WMaterial">
+                    <option value="1">1 - Сосна</option>
+                    <option value="2">2 - Сосна</option>
+                    <option value="3">3 - Сосна</option>
+                    <option value="4">4 - Лиственница срощенная</option>
+                    <option value="5">5 - Лиственница</option>
+                    <option value="6">6 - Лиственница</option>
+                    <option value="7">7 - Дуб срощенный</option>
+                    <option value="8">8 - Дуб</option>
+                  </select>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2" valign="middle">* изделия сорта <<span lang="ru">Категория 
+				А</span>> - наружние 
+                  ламели без сучков и сращивания по длине</td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Цвет: </b></td>
+                <td width="250"> 
+                  <select name="WColor">
+                    <option value="1">1 - Белый или под дерево *</option>
+                    <option value="2">2 - Двухцветное окрашивание</option>
+                    <option value="3">3 - Инд-ый подбор цвета **</option>
+                  </select>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2" valign="middle">&nbsp;</td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Стеклопакет: </b></td>
+                <td width="250"> 
+                  <select name="WPacket">
+                    <option value="1">1 - Двукамерный</option>
+                    <option value="2">2 - Однокамерный</option>
+                    <option value="3">3 - Тонированное стекло</option>
+                    <option value="4">4 - Шумоизоляционное стекло (6мм)</option>
+                    <option value="5">5 - Триплекс</option>
+                    <option value="6">6 - K, I - стекло</option>
+                  </select>
+                </td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Наружный слив:</b></td>
+                <td width="250"> 
+                <select name="SlivType">
+                  <option value="1">1  - Монтаж старых отливов</option>
+                  <option value="2">2  - Оцинкованный окрашенный до 150 мм</option>
+                  <option value="3">3  - Оцинкованный окрашенный от 150 до 210 мм</option>
+                  <option value="4">4  - Оцинкованный окрашенный от 210 до 240 мм</option>
+                  <option value="5">5  - Оцинкованный окрашенный от 240 до 280 мм</option>
+                  <option value="6">6  - Оцинкованный окрашенный от 280 до 360 мм</option>
+                  <option value="7">7  - Алюминиевый до 150 мм</option>
+                  <option value="8">8  - Алюминиевый от 150 до 210 мм</option>
+                  <option value="9">9  - Алюминиевый от 210 до 240 мм</option>
+                  <option value="10">10 - Алюминиевый от 240 до 280 мм</option>
+                  <option value="11">11 - Алюминиевый от 280 до 360 мм</option>
+                </select>
+                </td>
+              </tr>
+              <tr> 
+                <td width="250" valign="middle"><b>Подоконник (материал):</b></td>
+                <td width="250"> 
+                <select name="PodokonnikType">
+                  <option value="0">0 - Без подоконника</option>
+                  <option value="1">1 - Сосна</option>
+                  <option value="3">2 - Сосна</option>
+                  <option value="4">3 - Лиственница</option>
+                  <option value="6">4 - Лиственница</option>
+                  <option value="7">5 - Дуб срощенный</option>
+                  <option value="8">6 - Дуб</option>
+                  <option value="9">7 - ПВХ</option>
+                  <option value="10">8 - ПВХ</option>
+                </select>
+                </td>
+              </tr>
+              <tr> 
+                <td width="250"> </td>
+                <td width="250"><b>ширина (в мм):</b> 
+                  <select name="PodokWidth">
+                    <option value="200">200</option>
+                    <option value="250">250</option>
+                    <option value="300">300</option>
+                    <option value="350">350</option>
+                    <option value="400">400</option>
+                    <option value="450">450</option>
+                    <option value="500">500</option>
+                    <option value="600">600</option>
+                  </select>
+                </td>
+              </tr>
+              <tr> 
+                <td valign="middle" colspan="2"> 
+                  <table width="360" border="0" cellspacing="0" cellpadding="0">
+                    <tr> 
+                      <td width="24"> 
+                        <input type="checkbox" name="AlumOklad" value="True">
+                      </td>
+                      <td width="336"><b>Алюминиевый оклад снаружи окна </b></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            <tr> 
+              <td width="250" valign="middle"> 
+                <table width="250" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="10"> 
+                      <input type="radio" name="OtkosType" value="Plastic" checked>
+                    </td>
+                    <td><b>откосы пластиковые белые</b></td>
+                  </tr>
+                  <tr> 
+                    <td width="10"> 
+                      <input type="radio" name="OtkosType" value="PlasticC" checked>
+                    </td>
+                    <td><b>откосы пластиковые под цвет</b></td>
+                  </tr>
+                  <tr> 
+                    <td width="10"> 
+                      <input type="radio" name="OtkosType" value="Gips">
+                    </td>
+                    <td><b>откосы гипсокартоновые</b></td>
+                  </tr>
+                </table>
+              </td>
+              <td width="250"> <b>(ширина в мм): </b> 
+                <select name="OtkosWidth">
+                  <option value="0">0 - Без откосов</option>
+                  <option value="1">1 - Менее 15</option>
+                  <option value="2">2 - 15-24</option>
+                  <option value="3">3 - 25-29</option>
+                  <option value="4">4 - 30-39</option>
+                  <option value="5">5 - 40-49</option>
+                  <option value="6">6 - 50-59</option>
+                  <option value="7">7 - 60-75</option>
+                </select>
+              </td>
+            </tr>
+              <tr> 
+                <td valign="middle" colspan="2"> 
+                  <table width="360" border="0" cellspacing="0" cellpadding="0">
+                    <tr> 
+                      <td width="24"> 
+                        <input type="checkbox" name="Mounting" value="True">
+                      </td>
+                      <td width="336"><b>Монтаж окна</b></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="2"> 
+                  <center>
+                    <p> 
+                      <input type="button" value="Подсчитать" onClick="calculate()" name="CaclButton">
+                    </p>
+                  </center>
+                </td>
+              </tr>
+            </table>
+          </form>
+          <table border=0 cellspacing=0 cellpadding=5 width=400>
+            <tr> 
+              <td width="300"><b>Стоимость заказанного Вами окна:</b></td>
+              <td width="100"><b><font color=red><span id="csum">0</span> у.е.</font></b></td>
+            </tr>
+            <tr> 
+              <td width="300"><b>Площадь заказанного Вами окна:</b></td>
+              <td width="100"><b><font color=red><span id="csss">0</span>&nbsp;кв.м.</font></b></td>
+          </table>
+          <div align="center"></div>
+          <p>&nbsp;</p>
+          <h1 class="b">&nbsp;</h1>
+          </center>
+        </center>
+      </td>
+  </tr>
+</table>
+
+
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
+

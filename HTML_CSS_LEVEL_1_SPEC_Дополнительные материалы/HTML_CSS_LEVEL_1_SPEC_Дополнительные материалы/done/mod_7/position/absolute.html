@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Position absolute</title>
+<style type="text/css">
+body{
+	position:relative;
+}
+#out{
+	/*position:relative;*/
+	background:#ccf;
+	margin:0 0 0 400px;
+	font-size:2em;
+}
+#out span{
+	position:absolute;
+	left:0;
+	top:100px;
+	background:#cfc;
+}
+</style>
+</head>
+<body>
+	<div id="out">Начало <span>вставка</span> и продолжение текста</div>
+</body>
+</html>

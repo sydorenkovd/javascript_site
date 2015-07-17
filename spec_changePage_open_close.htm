@@ -1,0 +1,77 @@
+﻿<html>
+  <head>
+  	<style type="text/css">
+		#panelTitle{
+			display : block;
+			border : 1px solid black;
+			background-color : #DFDFDF;
+			text-decoration : none;
+			color : black;
+		}
+		#panel{
+			border : 1px solid black;
+			border-top-width: 0px;
+
+		}
+  	</style>
+  <script type="text/javascript">
+  function collapsePanel(){
+  	var panel = document.getElementById('panel');
+  	var step = 4;
+  	if(panel.clientHeigth >= step){
+  		var h = panel.clientHeigth - step;
+  		panel.style.hiegth = h+"px";
+  		setTimeout("collapsePanel()", 50)
+  	}
+  	else{
+  		panel.style.display = 'none';
+  		var panelTitle = document.getElementById('panelTitle'); 
+panelTitle.firstChild.nodeValue = "openPanel";
+  	}
+  }
+function changePanel(){
+	var panel = document.getElementById('panel');
+	var panelTitle = document.getElementById('panelTitle');
+	
+	if(panel.style.display == 'none'){
+		panel.style.display = "";
+		panelTitle.firstChild.nodeValue = "closePanel";
+	}
+	else{
+		collapsePanel();
+			}
+}
+</script>
+</head>
+<body>
+	<h1>Panel</h1>
+	<div>
+		<a href="javascript:changePanel();" id="panelTitle">closePanel</a>
+	
+	<div id="panel">
+------Алгоритм изучения javascript---------------
+Изучение языковых конструкций: переменные, циклы, условные конструкции, функции.
+Освоение объектов и массивов.
+Изучив основы работы с языковыми конструкциями и основными типами данных можно перейти к освоению главной задачи JavaScript – манипулированию DOM дерева. Вы должны научится работать с элементами, которые находится на странице, динамически создавать новые узлы и изменять существующие.
+Изучение шаблонов проектирования и кодирования, которые позволят разрабатывать понятный и сопровождаемый код.
+Изучение дополнительных библиотек и фреймворков, например, jQuery.
+	</div>
+</div>
+	<p>
+		========================================================
+https://github.com/panser/TEMPLATES  // Github Панка,
+=======================================================
+http://www.ex.ua/77038479  // Видеоурови Русакова.
+=========================================================
+http://myrusakov.ru/sql-mysql-raznica.html // сайт Русакова о вебе
+=============================================================
+http://sergejj-kilin.narod.ru/js.html#   // много интересных javascript-скриптов
+==================================================
+http://nnm-club.me/forum/viewtopic.php?t=912111  //учебный материал по 1С
+===================================================
+https://www.eviebot.com/en/   // Ева-бот для изучения английского
+	</p>
+
+
+		  </body>
+</html>
